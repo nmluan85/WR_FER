@@ -1,0 +1,172 @@
+import sys
+import warnings
+
+import torch
+import torch.nn as nn
+from torch.cuda.amp import GradScaler
+from torch.optim.lr_scheduler import ReduceLROnPlateau
+
+from sklearn.metrics import precision_score, f1_score, recall_score, confusion_matrix
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+
+from data.fer2013 import get_dataloaders
+from utils.checkpoint import save
+from utils.hparams import setup_hparams
+from utils.loops import train, evaluate
+from utils.setup_network import setup_network
+
+warnings.filterwarnings("ignore")
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+def correct_count(output, target, topk=(1,)):
+    """Computes the top k corrrect count for the specified values of k"""
+    maxk = max(topk)
+
+    _, pred = output.topk(maxk, 1, True, True)
+    pred = pred.t()
+    correct = pred.eq(target.view(1, -1).expand_as(pred))
+
+    res = []
+    for k in topk:
+        correct_k = correct[:k].contiguous().view(-1).float().sum(0, keepdim=True)
+        res.append(correct_k)
+    return res
+
+
+def evaluate1(net, dataloader, criterion):
+    net = net.eval()
+    loss_tr, n_samples = 0.0, 0.0
+
+    y_pred = []
+    y_gt = []
+
+    correct_count1 = 0
+    correct_count2 = 0
+
+    for data in dataloader:
+        inputs, labels = data
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        # fuse crops and batchsize
+        bs, ncrops, c, h, w = inputs.shape
+        inputs = inputs.view(-1, c, h, w)
+
+        # forward
+        outputs = net(inputs)
+
+        # combine results across the crops
+        outputs = outputs.view(bs, ncrops, -1)
+        outputs = torch.sum(outputs, dim=1) / ncrops
+
+        loss = criterion(outputs, labels)
+
+        # calculate performance metrics
+        loss_tr += loss.item()
+
+        # accuracy
+        counts = correct_count(outputs, labels, topk=(1, 2))
+        correct_count1 += counts[0].item()
+        correct_count2 += counts[-1].item()
+
+        _, preds = torch.max(outputs.data, 1)
+        preds = preds.to("cpu")
+        labels = labels.to("cpu")
+        n_samples += labels.size(0)
+
+        y_pred.extend(pred.item() for pred in preds)
+        y_gt.extend(y.item() for y in labels)
+
+    acc1 = 100 * correct_count1 / n_samples
+    acc2 = 100 * correct_count2 / n_samples
+    loss = loss_tr / n_samples
+    print("--------------------------------------------------------")
+    print("Top 1 Accuracy: %2.6f %%" % acc1)
+    print("Top 2 Accuracy: %2.6f %%" % acc2)
+    print("Loss: %2.6f" % loss)
+    print("Precision: %2.6f" % precision_score(y_gt, y_pred, average='micro'))
+    print("Recall: %2.6f" % recall_score(y_gt, y_pred, average='micro'))
+    print("F1 Score: %2.6f" % f1_score(y_gt, y_pred, average='micro'))
+    print("Confusion Matrix:\n", confusion_matrix(y_gt, y_pred), '\n')
+    conf_mat = confusion_matrix(y_gt, y_pred)
+    plt.figure(figsize=(10,7))
+    sns.heatmap(conf_mat, annot=True, fmt='g')
+    plt.title('Confusion Matrix')
+    plt.ylabel('Actual Label')
+    plt.xlabel('Predicted Label')
+    plt.show()
+
+def run(net, logger, hps):
+    # Create dataloaders
+    trainloader, valloader, testloader = get_dataloaders(bs=hps['bs'])
+
+    net = net.to(device)
+
+    learning_rate = float(hps['lr'])
+    scaler = GradScaler()
+
+    # optimizer = torch.optim.Adadelta(net.parameters(), lr=learning_rate, weight_decay=0.0001)
+    # optimizer = torch.optim.Adagrad(net.parameters(), lr=learning_rate, weight_decay=0.0001)
+    # optimizer = torch.optim.Adam(net.parameters(), lr=learning_rate, weight_decay=0.0001, amsgrad=True)
+    # optimizer = torch.optim.ASGD(net.parameters(), lr=learning_rate, weight_decay=0.0001)
+    optimizer = torch.optim.SGD(net.parameters(), lr=learning_rate, momentum=0.9, nesterov=True, weight_decay=0.0001)
+
+    scheduler = ReduceLROnPlateau(optimizer, mode='max', factor=0.75, patience=5, verbose=True)
+    # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 20, gamma=0.5, last_epoch=-1, verbose=True)
+    # scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=0.01, steps_per_epoch=len(trainloader), epochs=hps['n_epochs'])
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, T_0=10, T_mult=1, eta_min=1e-6, last_epoch=-1, verbose=True)
+    # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=10, eta_min=1e-6, last_epoch=-1, verbose=False)
+    criterion = nn.CrossEntropyLoss()
+
+    best_acc = 0.0
+    hps['n_epochs'] = 100
+    print("Training", hps['name'], "on", device)
+    for epoch in range(hps['start_epoch'], hps['n_epochs']):
+
+        acc_tr, loss_tr = train(net, trainloader, criterion, optimizer, scaler)
+        logger.loss_train.append(loss_tr)
+        logger.acc_train.append(acc_tr)
+
+        acc_v, loss_v = evaluate(net, valloader, criterion)
+        logger.loss_val.append(loss_v)
+        logger.acc_val.append(acc_v)
+
+        # Update learning rate
+        scheduler.step(acc_v)
+
+        if acc_v > best_acc:
+            best_acc = acc_v
+
+            save(net, logger, hps, epoch + 1)
+            logger.save_plt(hps)
+
+        if (epoch + 1) % hps['save_freq'] == 0:
+            save(net, logger, hps, epoch + 1)
+            logger.save_plt(hps)
+
+        print('Epoch %2d' % (epoch + 1),
+              'Train Accuracy: %2.4f %%' % acc_tr,
+              'Val Accuracy: %2.4f %%' % acc_v,
+              sep='\t\t')
+
+    # Calculate performance on test set
+    acc_test, loss_test = evaluate(net, testloader, criterion)
+    print('Test Accuracy: %2.4f %%' % acc_test,
+          'Test Loss: %2.6f' % loss_test,
+          sep='\t\t')
+    print("Train")
+    evaluate1(net, trainloader, criterion)
+
+    print("Val")
+    evaluate1(net, valloader, criterion)
+
+    print("Test")
+    evaluate1(net, testloader, criterion)
+
+if __name__ == "__main__":
+    # Important parameters
+    hps = setup_hparams(sys.argv[1:])
+    logger, net = setup_network(hps)
+
+    run(net, logger, hps)

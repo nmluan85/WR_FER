@@ -1,0 +1,178 @@
+Training my_vgg on cuda:0
+Epoch  1		Train Accuracy: 60.9444 %		Val Accuracy: 64.5161 %
+Epoch  2		Train Accuracy: 65.8333 %		Val Accuracy: 64.5161 %
+Epoch  3		Train Accuracy: 65.8333 %		Val Accuracy: 64.5161 %
+Epoch  4		Train Accuracy: 65.8333 %		Val Accuracy: 34.4086 %
+Epoch  5		Train Accuracy: 68.7222 %		Val Accuracy: 64.5161 %
+Epoch  6		Train Accuracy: 70.0694 %		Val Accuracy: 69.8925 %
+Epoch  7		Train Accuracy: 74.4306 %		Val Accuracy: 61.2903 %
+Epoch  8		Train Accuracy: 75.3333 %		Val Accuracy: 38.7097 %
+Epoch  9		Train Accuracy: 76.9167 %		Val Accuracy: 84.9462 %
+Epoch 10		Train Accuracy: 81.1528 %		Val Accuracy: 83.8710 %
+Epoch 11		Train Accuracy: 81.3194 %		Val Accuracy: 17.2043 %
+Epoch 12		Train Accuracy: 81.8889 %		Val Accuracy: 84.9462 %
+Epoch 13		Train Accuracy: 84.0556 %		Val Accuracy: 82.7957 %
+Epoch 14		Train Accuracy: 82.8056 %		Val Accuracy: 78.4946 %
+Epoch 15		Train Accuracy: 84.7361 %		Val Accuracy: 59.1398 %
+Epoch 16		Train Accuracy: 86.5694 %		Val Accuracy: 94.6237 %
+Epoch 17		Train Accuracy: 88.3472 %		Val Accuracy: 87.0968 %
+Epoch 18		Train Accuracy: 87.4722 %		Val Accuracy: 66.6667 %
+Epoch 19		Train Accuracy: 87.0556 %		Val Accuracy: 92.4731 %
+Epoch 20		Train Accuracy: 88.9444 %		Val Accuracy: 87.0968 %
+Epoch 21		Train Accuracy: 90.5972 %		Val Accuracy: 87.0968 %
+Epoch 22		Train Accuracy: 90.4167 %		Val Accuracy: 65.5914 %
+Epoch 23		Train Accuracy: 91.7083 %		Val Accuracy: 91.3978 %
+Epoch 24		Train Accuracy: 91.7778 %		Val Accuracy: 95.6989 %
+Epoch 25		Train Accuracy: 93.1667 %		Val Accuracy: 83.8710 %
+Epoch 26		Train Accuracy: 92.0972 %		Val Accuracy: 89.2473 %
+Epoch 27		Train Accuracy: 92.5000 %		Val Accuracy: 67.7419 %
+Epoch 28		Train Accuracy: 92.3611 %		Val Accuracy: 88.1720 %
+Epoch 29		Train Accuracy: 91.5556 %		Val Accuracy: 83.8710 %
+Epoch 30		Train Accuracy: 89.4583 %		Val Accuracy: 89.2473 %
+Epoch 31		Train Accuracy: 93.1250 %		Val Accuracy: 95.6989 %
+Epoch 32		Train Accuracy: 94.0556 %		Val Accuracy: 95.6989 %
+Epoch 33		Train Accuracy: 94.7639 %		Val Accuracy: 84.9462 %
+Epoch 34		Train Accuracy: 94.3889 %		Val Accuracy: 93.5484 %
+Epoch 35		Train Accuracy: 95.1528 %		Val Accuracy: 94.6237 %
+Epoch 36		Train Accuracy: 94.4722 %		Val Accuracy: 93.5484 %
+Epoch 37		Train Accuracy: 95.1528 %		Val Accuracy: 95.6989 %
+Epoch 38		Train Accuracy: 94.9167 %		Val Accuracy: 93.5484 %
+Epoch 39		Train Accuracy: 96.0278 %		Val Accuracy: 96.7742 %
+Epoch 40		Train Accuracy: 95.2917 %		Val Accuracy: 96.7742 %
+Epoch 41		Train Accuracy: 95.5694 %		Val Accuracy: 92.4731 %
+Epoch 42		Train Accuracy: 96.0417 %		Val Accuracy: 95.6989 %
+Epoch 43		Train Accuracy: 95.9583 %		Val Accuracy: 93.5484 %
+Epoch 44		Train Accuracy: 96.0556 %		Val Accuracy: 94.6237 %
+Epoch 45		Train Accuracy: 96.1944 %		Val Accuracy: 93.5484 %
+Epoch 46		Train Accuracy: 95.7222 %		Val Accuracy: 96.7742 %
+Epoch 47		Train Accuracy: 95.8889 %		Val Accuracy: 96.7742 %
+Epoch 48		Train Accuracy: 95.9028 %		Val Accuracy: 89.2473 %
+Epoch 49		Train Accuracy: 96.0139 %		Val Accuracy: 91.3978 %
+Epoch 50		Train Accuracy: 96.7361 %		Val Accuracy: 94.6237 %
+Epoch 51		Train Accuracy: 96.4722 %		Val Accuracy: 95.6989 %
+Epoch 52		Train Accuracy: 96.7778 %		Val Accuracy: 96.7742 %
+Epoch 53		Train Accuracy: 96.7500 %		Val Accuracy: 96.7742 %
+Epoch 54		Train Accuracy: 96.7222 %		Val Accuracy: 95.6989 %
+Epoch 55		Train Accuracy: 97.2639 %		Val Accuracy: 96.7742 %
+Epoch 56		Train Accuracy: 97.0417 %		Val Accuracy: 95.6989 %
+Epoch 57		Train Accuracy: 96.7361 %		Val Accuracy: 94.6237 %
+Epoch 58		Train Accuracy: 97.0833 %		Val Accuracy: 95.6989 %
+Epoch 59		Train Accuracy: 97.5139 %		Val Accuracy: 95.6989 %
+Epoch 60		Train Accuracy: 96.7361 %		Val Accuracy: 95.6989 %
+Epoch 61		Train Accuracy: 97.3056 %		Val Accuracy: 96.7742 %
+Epoch 62		Train Accuracy: 97.0694 %		Val Accuracy: 95.6989 %
+Epoch 63		Train Accuracy: 97.7361 %		Val Accuracy: 95.6989 %
+Epoch 64		Train Accuracy: 97.1250 %		Val Accuracy: 96.7742 %
+Epoch 65		Train Accuracy: 97.7500 %		Val Accuracy: 96.7742 %
+Epoch 66		Train Accuracy: 97.6944 %		Val Accuracy: 96.7742 %
+Epoch 67		Train Accuracy: 97.2083 %		Val Accuracy: 95.6989 %
+Epoch 68		Train Accuracy: 97.5417 %		Val Accuracy: 94.6237 %
+Epoch 69		Train Accuracy: 96.7917 %		Val Accuracy: 95.6989 %
+Epoch 70		Train Accuracy: 97.7083 %		Val Accuracy: 96.7742 %
+Epoch 71		Train Accuracy: 97.1250 %		Val Accuracy: 96.7742 %
+Epoch 72		Train Accuracy: 97.2222 %		Val Accuracy: 96.7742 %
+Epoch 73		Train Accuracy: 97.6528 %		Val Accuracy: 96.7742 %
+Epoch 74		Train Accuracy: 97.6250 %		Val Accuracy: 96.7742 %
+Epoch 75		Train Accuracy: 97.7639 %		Val Accuracy: 96.7742 %
+Epoch 76		Train Accuracy: 97.2500 %		Val Accuracy: 96.7742 %
+Epoch 77		Train Accuracy: 96.9444 %		Val Accuracy: 96.7742 %
+Epoch 78		Train Accuracy: 97.9444 %		Val Accuracy: 96.7742 %
+Epoch 79		Train Accuracy: 97.3750 %		Val Accuracy: 95.6989 %
+Epoch 80		Train Accuracy: 97.7361 %		Val Accuracy: 96.7742 %
+Epoch 81		Train Accuracy: 97.2500 %		Val Accuracy: 96.7742 %
+Epoch 82		Train Accuracy: 97.7778 %		Val Accuracy: 96.7742 %
+Epoch 83		Train Accuracy: 97.7639 %		Val Accuracy: 96.7742 %
+Epoch 84		Train Accuracy: 97.4167 %		Val Accuracy: 95.6989 %
+Epoch 85		Train Accuracy: 97.9028 %		Val Accuracy: 96.7742 %
+Epoch 86		Train Accuracy: 97.5278 %		Val Accuracy: 96.7742 %
+Epoch 87		Train Accuracy: 97.2917 %		Val Accuracy: 95.6989 %
+Epoch 88		Train Accuracy: 97.8333 %		Val Accuracy: 96.7742 %
+Epoch 89		Train Accuracy: 97.4167 %		Val Accuracy: 96.7742 %
+Epoch 90		Train Accuracy: 98.2083 %		Val Accuracy: 96.7742 %
+Epoch 91		Train Accuracy: 97.2222 %		Val Accuracy: 96.7742 %
+Epoch 92		Train Accuracy: 97.6806 %		Val Accuracy: 96.7742 %
+Epoch 93		Train Accuracy: 97.6250 %		Val Accuracy: 96.7742 %
+Epoch 94		Train Accuracy: 97.8472 %		Val Accuracy: 96.7742 %
+Epoch 95		Train Accuracy: 97.9028 %		Val Accuracy: 96.7742 %
+Epoch 96		Train Accuracy: 97.4861 %		Val Accuracy: 96.7742 %
+Epoch 97		Train Accuracy: 97.9306 %		Val Accuracy: 95.6989 %
+Epoch 98		Train Accuracy: 97.5833 %		Val Accuracy: 96.7742 %
+Epoch 99		Train Accuracy: 97.8472 %		Val Accuracy: 96.7742 %
+Epoch 100		Train Accuracy: 97.6250 %		Val Accuracy: 96.7742 %
+Test Accuracy: 92.1348 %		Test Loss: 0.008473
+Train
+--------------------------------------------------------
+Top 1 Accuracy: 99.444444 %
+Top 2 Accuracy: 100.000000 %
+Loss: 0.000232
+Precision: 0.994444
+Recall: 0.994444
+F1 Score: 0.994444
+Confusion Matrix:
+ [[ 36   0   0   0   0   0   0]
+ [  0  47   0   0   0   0   0]
+ [  0   0  20   0   0   0   0]
+ [  0   0   0  55   0   0   0]
+ [  0   0   0   0  20   0   2]
+ [  0   0   1   0   0  65   0]
+ [  0   0   0   0   0   1 473]] 
+
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(640x480)
+Figure(1000x700)
+Val
+--------------------------------------------------------
+Top 1 Accuracy: 96.774194 %
+Top 2 Accuracy: 97.849462 %
+Loss: 0.003912
+Precision: 0.967742
+Recall: 0.967742
+F1 Score: 0.967742
+Confusion Matrix:
+ [[ 5  0  0  0  0  0  0]
+ [ 0  6  0  0  0  0  0]
+ [ 0  0  2  1  0  0  0]
+ [ 0  0  0  7  0  0  0]
+ [ 0  0  0  0  2  0  1]
+ [ 0  0  0  0  0  9  0]
+ [ 0  0  1  0  0  0 59]] 
+
+Figure(1000x700)
+Test
+--------------------------------------------------------
+Top 1 Accuracy: 92.134831 %
+Top 2 Accuracy: 96.629213 %
+Loss: 0.012975
+Precision: 0.921348
+Recall: 0.921348
+F1 Score: 0.921348
+Confusion Matrix:
+ [[ 1  0  0  0  2  0  1]
+ [ 0  6  0  0  0  0  0]
+ [ 0  0  1  0  0  1  0]
+ [ 0  0  0  7  0  0  0]
+ [ 0  0  0  0  3  0  0]
+ [ 0  0  0  0  0  7  1]
+ [ 0  0  0  0  2  0 57]] 
+
+Figure(1000x700)
